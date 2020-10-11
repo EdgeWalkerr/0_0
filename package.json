@@ -1,0 +1,24 @@
+{
+  "name": "context",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "repository": "https://github.com/EdgeWalkerr/context.git",
+  "author": "shenxiang.feng <shenxiang.feng@binance.com>",
+  "license": "MIT",
+  "files": [
+    "./dist"
+  ],
+  "scripts": {
+    "build": "tsc -w"
+  },
+  "dependencies": {
+    "immer": "^7.0.9",
+    "lodash": "^4.17.20",
+    "react": "^17.0.0-rc.3",
+    "zustand": "^3.1.3"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.162",
+    "typescript": "^4.0.3"
+  }
+}
