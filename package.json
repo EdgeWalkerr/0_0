@@ -1,8 +1,8 @@
 {
-  "name": "0_0",
-  "version": "1.0.0",
+  "name": "@edgewalker/0_0",
+  "version": "1.0.1",
   "main": "./dist/index.js",
-  "repository": "https://github.com/EdgeWalkerr/context.git",
+  "repository": "https://github.com/EdgeWalkerr/0_0.git",
   "author": "shenxiang.feng <shenxiang.feng@binance.com>",
   "license": "MIT",
   "files": [
