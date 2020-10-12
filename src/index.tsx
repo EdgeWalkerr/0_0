@@ -3,7 +3,7 @@ import create, { UseStore } from "zustand";
 import compareDeepSetShallow from "./compareDeepSetShallow";
 import produce from "immer";
 
-export const Context = createContext({
+const Context = createContext({
 	useSelector: (() => { }) as UseStore<any>,
 });
 
@@ -45,3 +45,5 @@ function createStore<T>(data: T) {
 		}
 	};
 }
+
+export default Context;
