@@ -5,16 +5,12 @@ import produce from "immer";
 
 export const Context = createContext({
 	useSelector: (() => { }) as UseStore<any>,
-	O_O: (() => { }) as (
-		data: Object | ((state: Object) => Object),
-		useCompareDeepSetShallow?: boolean
-	) => void
 });
 
-Context.Store = function ({ children, value }: any) {
+Context.Store = function ({ children, value, useCompareDeepSetShallow }: any) {
 	const [{ useSelector, O_O }] = useState(createStore(value));
-	O_O(value, true);
-	const newValue = useMemo(() => ({ useSelector, O_O }), []);
+	O_O(value, useCompareDeepSetShallow);
+	const newValue = useMemo(() => ({ useSelector }), []);
 	return <Context.Provider value={newValue}>{children}</Context.Provider>;
 } as any;
 
