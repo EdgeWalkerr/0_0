@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"0i0@0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/0i0/-/0i0-0.0.1.tgz#8470e5f624bc85fe9d4ed5e787e7d0cc95bbc46c"
-  integrity sha512-Qpy4CclWDi/4sXKTdcvS2r96HkmgLeFc7yzA0OlY/1/mEn4o0rJKKzt0LDzfbhHD274OenCzeWBg9+1qBwfBOw==
+"0i0@0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/0i0/-/0i0-0.0.3.tgz#157656d130a189d0a9fc4dafad399842082f4745"
+  integrity sha512-GcT7/aQ5VJg7VzUORELeGPi+smLKok6Te1+YYovWqjT6j6lIVQbQjykmaQVLSBLNgoCPm2e+agUSz8Uzm1WTDQ==
   dependencies:
     react "^16.13.1"
     zustand "^3.1.3"

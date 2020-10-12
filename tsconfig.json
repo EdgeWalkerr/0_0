@@ -10,7 +10,7 @@
 		"module": "commonjs",
 		"outDir": "dist",
 		"declaration": true,
-		"sourceMap": true,
+		"sourceMap": false,
 		"allowJs": true,
 		"esModuleInterop": true
 	},
