@@ -1,5 +1,5 @@
 import React, { memo, useContext } from "react";
-import Context from "@edgewalker/0_0";
+import Context from "0i0";
 
 function StaticValue() {
 	console.log("i am rendering");

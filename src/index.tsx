@@ -1,10 +1,9 @@
 import React, { createContext, useState, useMemo } from "react";
 import create, { UseStore } from "zustand";
 import compareDeepSetShallow from "./compareDeepSetShallow";
-import produce from "immer";
 
 const Context = createContext({
-	useSelector: (() => { }) as UseStore<any>,
+	useSelector: (() => { }) as UseStore<any>
 });
 
 Context.Store = function ({ children, value, useCompareDeepSetShallow }: any) {
@@ -22,25 +21,20 @@ function createStore<T>(data: T) {
 	});
 	return {
 		useSelector: useStore,
-		O_O: (
-			data: Partial<T> | ((state: T) => Partial<T>),
-			useCompareDeepSetShallow?: boolean
-		) => {
-			// 如果是function， 则使用immer进行set
+		O_O: (data: Partial<T>, useCompareDeepSetShallow?: boolean) => {
 			const state = useStore();
-			if (typeof data === "function") {
-				const newData = produce(state, data);
-				set(
-					useCompareDeepSetShallow
-						? compareDeepSetShallow(state, newData)
-						: newData
-				);
-			} else {
-				set(
-					[undefined, true].includes(useCompareDeepSetShallow)
-						? compareDeepSetShallow(state, { ...state, ...data })
-						: { ...state, ...data }
-				);
+			const oldData = Object.keys(data).reduce(
+				(result, key) => ({ ...result, [key]: state[key] }),
+				{}
+			);
+			const setData = [undefined, true].includes(useCompareDeepSetShallow)
+				? compareDeepSetShallow(oldData, data)
+				: data;
+			if (
+				Object.keys(oldData).length !== Object.keys(setData).length ||
+				Object.keys(oldData).some((key) => oldData[key] !== setData[key])
+			) {
+				set({ ...state, ...setData });
 			}
 		}
 	};

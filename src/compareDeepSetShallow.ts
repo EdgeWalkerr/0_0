@@ -1,5 +1,3 @@
-import { range } from 'lodash'
-
 const typeOf = (value) =>
 	Object.prototype.toString.call(value).slice(8, -1).toLowerCase();
 export default function compareDeepSetShallow(data, newData) {
@@ -12,7 +10,7 @@ export default function compareDeepSetShallow(data, newData) {
 			}
 
 			case 'array': {
-				const currentData = range(newData.length).map((index) => compareDeepSetShallow(data[index], newData[index]))
+				const currentData = newData.map((_, index) => compareDeepSetShallow(data[index], newData[index]))
 				const a = currentData.length === data.length && currentData.every((_, index) => currentData[index] === data[index]) ? data : currentData;
 				return a;
 			}

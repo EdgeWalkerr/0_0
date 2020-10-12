@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import StaticValue from "./staticValue";
-import Context from "@edgewalker/0_0";
+import Context from "0i0";
 
 export default function App() {
 	const [num, setNum] = useState(0);
