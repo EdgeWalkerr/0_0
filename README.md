@@ -14,7 +14,7 @@ https://codesandbox.io/s/0i0-yq1n3
 yarn add 0i0
 ```
 
-it need a root just like Context
+#### it need a root just like Context
 
 ```tsx
 import React, { useState } from "react";
@@ -41,7 +41,7 @@ export default function App() {
 }
 ```
 
-Select state in fuction component:
+#### Select state in fuction component:
 
 ```tsx
 import React, { memo } from "react";
@@ -62,7 +62,7 @@ function Num2() {
 export default memo(Num2);
 ```
 
-select state in class component:
+#### select state in class component:
 
 ```tsx
 import React, { memo } from "react";
@@ -87,3 +87,10 @@ class Num1 extends React.Component {
 export default memo(connect(({ num1, setNum1 }) => ({ num1, setNum1 }))(Num1));
 
 ```
+
+### todo
+
+- [ ] test case
+- [ ] CICD
+- [ ] Fix  Cannot update a component problem
+

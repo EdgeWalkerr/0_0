@@ -1,4 +1,4 @@
-import React, { ReactNode, createContext, useContext, useState } from "react";
+import React, { useMemo, createContext, useContext, useState } from "react";
 import create from "zustand";
 import compareDeepSetShallow from "./compareDeepSetShallow";
 type ISelector<T, U> = (
@@ -9,16 +9,16 @@ type ISelector<T, U> = (
 const Context = createContext((() => ({})) as ISelector<any, any>);
 
 export function Provider({ children, value, useCompareDeepSetShallow }: any) {
-	const [{ useSelector, O_O }] = useState(createStore(value));
+	const [{ useSelector, O_O }] = useState(() => createStore(value));
 	O_O(value, useCompareDeepSetShallow);
-	return <Context.Provider value={useSelector}>{children}</Context.Provider>;
+	return useMemo(() => <Context.Provider value={useSelector}>{children}</Context.Provider>, [children]);
 }
-
-export const useSelector: ISelector<any, any> = (selector, equalFn = Object.is) => {
+const isEqual = (obj1, obj2) => compareDeepSetShallow(obj1, obj2) === obj1
+export const useSelector: ISelector<any, any> = (selector, equalFn = isEqual) => {
 	return useContext(Context)(selector, equalFn);
 };
 
-export const connect: ISelector<any, any> = (selector, equalFn = Object.is) => (Component: any): any => {
+export const connect: ISelector<any, any> = (selector, equalFn = isEqual) => (Component: any): any => {
 	return function Consumer<T>(props: T) {
 		const state = useContext(Context)(selector, equalFn);
 		return <Component {...props} {...state} />
