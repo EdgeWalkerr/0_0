@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { ReactNode, createContext, useContext, useState } from "react";
 import create from "zustand";
 import compareDeepSetShallow from "./compareDeepSetShallow";
 type ISelector<T, U> = (
@@ -16,6 +16,13 @@ export function Provider({ children, value, useCompareDeepSetShallow }: any) {
 
 export const useSelector: ISelector<any, any> = (selector, equalFn = Object.is) => {
 	return useContext(Context)(selector, equalFn);
+};
+
+export const connect: ISelector<any, any> = (selector, equalFn = Object.is) => (Component: any): any => {
+	return function Consumer<T>(props: T) {
+		const state = useContext(Context)(selector, equalFn);
+		return <Component {...props} {...state} />
+	}
 };
 
 function createStore<T>(data: T) {

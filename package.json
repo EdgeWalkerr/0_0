@@ -1,6 +1,6 @@
 {
   "name": "0i0",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "main": "./dist/index.js",
   "repository": "https://github.com/EdgeWalkerr/0i0.git",
   "author": "shenxiang.feng <shenxiang.feng@binance.com>",

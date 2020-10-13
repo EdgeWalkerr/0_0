@@ -1,16 +1,21 @@
 import React, { memo } from "react";
-import { useSelector } from "0i0";
+import { connect } from "0i0";
 
-function Num1() {
-	console.log("i am rendering");
-	const num1 = useSelector((state) => state.num1);
-	const setNum1 = useSelector((state) => state.setNum1);
-	return (
-		<div>
-			{num1}
-			<button onClick={() => setNum1((num: number) => num + 1)}> num1 add one </button>
-		</div>
-	);
+class Num1 extends React.Component {
+	render() {
+		console.log("i am rendering");
+		const { num1, setNum1 }: {
+			num1: number, setNum1: (fn: (num: number) => number) => number
+		} = this.props as any;
+		return (
+			<div>
+				{num1}
+				<button onClick={() => setNum1((num: number) => num + 1)}>
+					num1 add one
+				</button>
+			</div>
+		);
+	}
 }
 
-export default memo(Num1);
+export default memo(connect(({ num1, setNum1 }) => ({ num1, setNum1 }))(Num1));
