@@ -1,17 +1,22 @@
-import React, { createContext, useState, useMemo } from "react";
-import create, { UseStore } from "zustand";
+import React, { createContext, useContext, useState } from "react";
+import create from "zustand";
 import compareDeepSetShallow from "./compareDeepSetShallow";
+type ISelector<T, U> = (
+	selector: (state: U) => T,
+	equalFn?: (obj1: T, obj2: T) => boolean
+) => any;
 
-const Context = createContext({
-	useSelector: (() => { }) as UseStore<any>
-});
+const Context = createContext((() => ({})) as ISelector<any, any>);
 
-Context.Store = function ({ children, value, useCompareDeepSetShallow }: any) {
+export function Provider({ children, value, useCompareDeepSetShallow }: any) {
 	const [{ useSelector, O_O }] = useState(createStore(value));
 	O_O(value, useCompareDeepSetShallow);
-	const newValue = useMemo(() => ({ useSelector }), []);
-	return <Context.Provider value={newValue}>{children}</Context.Provider>;
-} as any;
+	return <Context.Provider value={useSelector}>{children}</Context.Provider>;
+}
+
+export const useSelector: ISelector<any, any> = (selector, equalFn = Object.is) => {
+	return useContext(Context)(selector, equalFn);
+};
 
 function createStore<T>(data: T) {
 	let set: Function = () => { };
@@ -21,13 +26,13 @@ function createStore<T>(data: T) {
 	});
 	return {
 		useSelector: useStore,
-		O_O: (data: Partial<T>, useCompareDeepSetShallow?: boolean) => {
+		O_O: (data: Partial<T>, useCompareDeepSetShallow = true) => {
 			const state = useStore();
 			const oldData = Object.keys(data).reduce(
 				(result, key) => ({ ...result, [key]: state[key] }),
 				{}
 			);
-			const setData = [undefined, true].includes(useCompareDeepSetShallow)
+			const setData = useCompareDeepSetShallow
 				? compareDeepSetShallow(oldData, data)
 				: data;
 			if (
@@ -39,5 +44,3 @@ function createStore<T>(data: T) {
 		}
 	};
 }
-
-export default Context;

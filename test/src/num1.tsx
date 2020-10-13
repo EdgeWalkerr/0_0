@@ -1,11 +1,10 @@
-import React, { memo, useContext } from "react";
-import Context from "0i0";
+import React, { memo } from "react";
+import { useSelector } from "0i0";
 
 function Num1() {
 	console.log("i am rendering");
-	const { useSelector } = useContext(Context);
-	const num1 = useSelector((state: any) => state.num1);
-	const setNum1 = useSelector((state: any) => state.setNum1);
+	const num1 = useSelector((state) => state.num1);
+	const setNum1 = useSelector((state) => state.setNum1);
 	return (
 		<div>
 			{num1}
