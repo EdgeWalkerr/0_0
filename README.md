@@ -92,5 +92,5 @@ export default memo(connect(({ num1, setNum1 }) => ({ num1, setNum1 }))(Num1));
 
 - [ ] test case
 - [ ] CICD
-- [ ] Fix  Cannot update a component problem
+- [x] Fix  Cannot update a component problem
 
