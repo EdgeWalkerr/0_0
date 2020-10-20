@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, {
 	useMemo,
 	createContext,
@@ -9,6 +10,7 @@ import React, {
 	ReactNode
 } from "react";
 import compareDeepSetShallow from "./compareDeepSetShallow";
+
 type ISelector = (
 	selector: atomType | atomType[] | ((state: any) => any),
 	equalFn?: (obj1: any, obj2: any) => boolean
@@ -25,9 +27,22 @@ const isEqual = (obj1: any, obj2: any) =>
 
 type atomType = string | number;
 
+const getPathList = (selector: atomType | atomType[]) => {
+	switch (typeof selector) {
+		case "string":
+			return selector.split(".");
+
+		case "number":
+			return [selector];
+
+		default:
+			return selector;
+	}
+};
+
 const Context = createContext((() => ({})) as ISelector);
 const noop = () => { };
-const selector = (
+const createSelector = (
 	valueRef: React.MutableRefObject<any>,
 	listenerListRef: React.MutableRefObject<IListener[]>
 ): ISelector => (
@@ -43,9 +58,9 @@ const selector = (
 				? selector
 				: (state: any) =>
 					(typeof selector === "string" || typeof selector === "number"
-						? [selector]
+						? getPathList(selector)
 						: selector
-					).reduce((result, key) => state?.[key], state)
+					).reduce((result, key) => result?.[key], state)
 		);
 		const stateRef = useRef(selectorRef.current(valueRef.current));
 		const equalFnRef = usePersistRef(equalFn);
@@ -88,22 +103,23 @@ export function Provider({
 			});
 		}
 	}, [value, equalFnRef]);
-	const useSelector = useMemo(() => selector(valueRef, listenerListRef), []);
+	const useSelector = useMemo(
+		() => createSelector(valueRef, listenerListRef),
+		[]
+	);
 	return useMemo(
 		() => <Context.Provider value={useSelector}>{children}</Context.Provider>,
 		[children, useSelector]
 	);
 }
 
-export const useSelector: ISelector = (selector, equalFn = isEqual) => {
-	return useContext(Context)(selector, equalFn);
-};
+export const useSelector: ISelector = (selector, equalFn = isEqual) =>
+	useContext(Context)(selector, equalFn);
 
 export const connect: ISelector = (selector, equalFn = isEqual) => (
 	Component: any
-): any => {
-	return function Consumer<T>(props: T) {
+): any =>
+	function Consumer<T>(props: T) {
 		const state = useContext(Context)(selector, equalFn);
 		return <Component {...props} {...state} />;
 	};
-};
