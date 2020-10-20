@@ -2,13 +2,12 @@
 # yarn lockfile v1
 
 
-"0i0@0.0.14":
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/0i0/-/0i0-0.0.14.tgz#a7652f2a7ceb30dd4079ea9f576bdaa2fec19bd0"
-  integrity sha512-WnVlSL2umU196hh0KH3Ln3ThC3tdIwzXgXBRXEj/Bbbb6jXs+Bcfg9vrj9dt141iiRvqdQ9zgYFmx5QsuIslAw==
+"0i0@0.0.18":
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/0i0/-/0i0-0.0.18.tgz#a4faf908eeda183b212e81681661f284d17ed0f6"
+  integrity sha512-rqLWXcn373QvnoKTRikrQBunm3vxxrcuT9tJI7hi1PDY/PDofzmaX3iW2Yyxcq8i/IJMbeW61Y6nBm7uG68FQg==
   dependencies:
     react "^16.13.1"
-    zustand "^3.1.3"
 
 "@babel/code-frame@7.8.3", "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.8.3":
   version "7.8.3"
@@ -10879,8 +10878,3 @@ yargs@^13.3.0, yargs@^13.3.2:
     which-module "^2.0.0"
     y18n "^4.0.0"
     yargs-parser "^13.1.2"
-
-zustand@^3.1.3:
-  version "3.1.3"
-  resolved "https://registry.yarnpkg.com/zustand/-/zustand-3.1.3.tgz#33df7f56ec11b3003458b60606addc94225b282c"
-  integrity sha512-Otuzh3r0GsatvsUWeXEwdYjZEw1TItWcAXwDGEHdXE4/k6WbAdVDxC21t/Poq4ZMB+2VaQNKICWu7eCBUJ65tQ==
