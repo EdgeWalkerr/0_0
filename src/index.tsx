@@ -12,7 +12,7 @@ import React, {
 import compareDeepSetShallow from "./compareDeepSetShallow";
 
 type ISelector = (
-	selector: atomType | atomType[] | ((state: any) => any),
+	selector: IPath | ((state: any) => any),
 	equalFn?: (obj1: any, obj2: any) => boolean
 ) => any;
 
@@ -25,18 +25,13 @@ function usePersistRef<T>(value: T) {
 const isEqual = (obj1: any, obj2: any) =>
 	compareDeepSetShallow(obj1, obj2) === obj1;
 
-type atomType = string | number;
+type IPath = string | number | string[]
 
-const getPathList = (selector: atomType | atomType[]) => {
-	switch (typeof selector) {
-		case "string":
-			return selector.split(".");
-
-		case "number":
-			return [selector];
-
-		default:
-			return selector;
+const getPathList = (selector: string | number) => {
+	if (typeof selector === 'string') {
+		return selector.split(".");
+	} else {
+		return [selector];
 	}
 };
 
@@ -46,7 +41,7 @@ const createSelector = (
 	valueRef: React.MutableRefObject<any>,
 	listenerListRef: React.MutableRefObject<IListener[]>
 ): ISelector => (
-	selector: atomType | atomType[] | ((state: any) => any),
+	selector: IPath | ((state: any) => any),
 	equalFn = isEqual
 ) => {
 		const [, setAccumulator] = useState(0);
@@ -56,11 +51,7 @@ const createSelector = (
 		const selectorRef = usePersistRef(
 			typeof selector === "function"
 				? selector
-				: (state: any) =>
-					(typeof selector === "string" || typeof selector === "number"
-						? getPathList(selector)
-						: selector
-					).reduce((result, key) => result?.[key], state)
+				: (typeof selector === 'string' || typeof selector === 'number') ? (state: any) => (getPathList(selector) as string[]).reduce((result, key) => result?.[key], state) : (state: any) => (selector.map((certainSelector) => getPathList(certainSelector)) as string[][]).map((certainPathList) => certainPathList.reduce((result, key) => result?.[key], state))
 		);
 		const stateRef = useRef(selectorRef.current(valueRef.current));
 		const equalFnRef = usePersistRef(equalFn);
