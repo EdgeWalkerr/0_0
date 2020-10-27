@@ -9,7 +9,7 @@ const getMapKeyList = (map: Map<string, unknown>) => {
 	map.forEach((_, key: string) => keyList.push(key))
 	return keyList
 }
-export default function compareDeepSetShallow(data, newData) {
+const compareDeepSetShallow = (data, newData) => {
 	// 使用层次遍历的方式来执行
 	if (typeOf(data) === typeOf(newData)) {
 		switch (typeOf(data)) {
@@ -50,3 +50,8 @@ export default function compareDeepSetShallow(data, newData) {
 	}
 	return newData
 }
+
+const isEqual = (obj1: any, obj2: any) =>
+	compareDeepSetShallow(obj1, obj2) === obj1;
+
+export default isEqual
