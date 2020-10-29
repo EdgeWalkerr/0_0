@@ -1,9 +1,8 @@
-import { ISelector } from './type'
-import isEqual from './isEqual'
-import { useContext } from 'react'
-import Context from './Context'
+import { ISelector } from "./type";
+import { useContext } from "react";
+import Context from "./Context";
 
-const useSelector: ISelector = (selector, equalFn = isEqual) =>
-	useContext(Context)(selector, equalFn);
+const useSelector: ISelector = (selector, deps = "") =>
+	useContext(Context)(selector as any, (deps = ""));
 
-export default useSelector
+export default useSelector;

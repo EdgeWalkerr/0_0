@@ -1,6 +1,10 @@
 export type ISelector = (
-	selector: IPath | ((state: any) => any),
-	equalFn?: (obj1: any, obj2: any) => boolean
+	selector: ISelectorPath | ((state: any) => any),
+	deps?: IPath
 ) => any;
 
-export type IPath = string | number | string[]
+export type IAtom = string | number;
+
+export type IPath = IAtom | IAtom[]
+
+export type ISelectorPath = IPath | Record<string, IAtom>

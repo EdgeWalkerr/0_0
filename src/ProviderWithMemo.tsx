@@ -1,4 +1,4 @@
-import React, { ReactComponentElement, ReactNode } from "react";
+import React, { ReactComponentElement } from "react";
 import { Provider } from ".";
 import { MemoComponent } from "./MemoComponent";
 
@@ -10,13 +10,11 @@ export default function ProviderWithMemo({
 	children: ReactComponentElement<any, any>;
 	value: any;
 	equalFn?: (obj1: any, obj2: any) => boolean;
-	deps: any
+	deps: any;
 }) {
 	return (
 		<Provider {...providerProps}>
-			<MemoComponent deps={deps}>
-				{children}
-			</MemoComponent>
+			<MemoComponent deps={deps}>{children}</MemoComponent>
 		</Provider>
-	)
+	);
 }

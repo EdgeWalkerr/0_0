@@ -1,6 +1,6 @@
-import { createContext } from 'react'
-import { ISelector } from './type'
+import { createContext } from "react";
+import { ISelector } from "./type";
 
 const Context = createContext((() => ({})) as ISelector);
 
-export default Context
+export default Context;

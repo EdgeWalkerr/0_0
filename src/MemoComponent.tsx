@@ -1,12 +1,13 @@
-import isEqual from './isEqual'
-import { memo, ReactElement } from 'react'
+import compareDeepSetShallow from "./compareDeepSetShallow";
+import { memo, ReactElement } from "react";
 
 interface IPropType {
-	children: ReactElement<any, any>
-	deps: any
+	children: ReactElement<any, any>;
+	deps: any;
 }
 
 export const MemoComponent = memo(
 	({ children }: IPropType) => children,
-	({ deps: prevDeps }, { deps }) => isEqual(deps, prevDeps)
-)
+	({ deps: prevDeps }, { deps }) =>
+		compareDeepSetShallow(deps, prevDeps) === deps
+);
