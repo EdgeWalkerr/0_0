@@ -1,17 +1,19 @@
 {
   "name": "0i0",
-  "version": "0.0.24",
+  "version": "0.0.27",
   "main": "./dist/index.js",
   "repository": "https://github.com/EdgeWalkerr/0i0.git",
-  "author": "shenxiang.feng <shenxiang.feng@binance.com>",
+  "author": "shenxiang.feng <2268317148@qq.com>",
   "license": "MIT",
   "scripts": {
     "build": "tsc -w"
   },
   "dependencies": {
+    "lodash": "^4.17.20",
     "react": "^16.13.1"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.164",
     "@types/react": "^16.9.53",
     "typescript": "^4.0.3"
   }

@@ -7,7 +7,6 @@ import React, {
 	useCallback,
 	ReactComponentElement
 } from "react";
-import compareDeepSetShallow from "./compareDeepSetShallow";
 import { ISelector, IPath, IAtom } from "./type";
 import Context from "./Context";
 import createHashBidirectionalList from "./hashBidirectionalList";
@@ -110,10 +109,16 @@ export default function Provider({
 	useEffect(() => {
 		if (valueRef.current !== value) {
 			const pathList = collectPathList(valueRef.current, value);
-			valueRef.current = compareDeepSetShallow(valueRef.current, value);
+			valueRef.current = value;
+			const funcRef = new WeakSet()
 			hashBidirectionalList
 				.collect(pathList)
-				.forEach((func) => func(valueRef.current));
+				.forEach((func) => {
+					if (!funcRef.has(func)) {
+						func(valueRef.current)
+						funcRef.add(func);
+					}
+				});
 		}
 	}, [value, hashBidirectionalList]);
 	const useSelector = useMemo(
