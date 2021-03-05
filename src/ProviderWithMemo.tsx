@@ -1,20 +1,21 @@
-import React, { ReactComponentElement } from "react";
-import { Provider } from ".";
-import { MemoComponent } from "./MemoComponent";
+import React, { ReactComponentElement } from 'react'
+import { Provider } from '.'
+import { MemoComponent } from './MemoComponent'
+import { IEqual } from './type'
 
 export default function ProviderWithMemo({
-	deps,
-	children,
-	...providerProps
+  children,
+  value,
+  ...restProps
 }: {
-	children: ReactComponentElement<any, any>;
-	value: any;
-	equalFn?: (obj1: any, obj2: any) => boolean;
-	deps: any;
+  children: ReactComponentElement<any, any>
+  value: any
+  equalFn?: IEqual
+  deps: Record<string, any>
 }) {
-	return (
-		<Provider {...providerProps}>
-			<MemoComponent deps={deps}>{children}</MemoComponent>
-		</Provider>
-	);
+  return (
+    <Provider value={value}>
+      <MemoComponent {...restProps}>{children}</MemoComponent>
+    </Provider>
+  )
 }

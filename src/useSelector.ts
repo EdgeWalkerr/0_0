@@ -1,8 +1,7 @@
-import { ISelector } from "./type";
-import { useContext } from "react";
-import Context from "./Context";
+import { useContext } from 'react'
+import { ISelector } from './type'
+import Context from './Context'
 
-const useSelector: ISelector = (selector, deps = "") =>
-	useContext(Context)(selector as any, (deps = ""));
+const useSelector: ISelector = (selector, equalFn) => useContext(Context)(selector, equalFn)
 
-export default useSelector;
+export default useSelector
